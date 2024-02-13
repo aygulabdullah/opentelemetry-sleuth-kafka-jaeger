@@ -1,7 +1,8 @@
+version: "2"
 services:
-
   customer-service-bff:
     image: customer-service-bff:0.0.1-SNAPSHOT
+    container_name: customer-service-bff
     ports:
       - "8080:8080"
     depends_on:
@@ -10,6 +11,7 @@ services:
 
   customer-service:
     image: customer-service:0.0.1-SNAPSHOT
+    container_name: customer-service
     ports:
       - "8081:8081"
     depends_on:
@@ -24,6 +26,7 @@ services:
 
   order-service:
     image: order-service:0.0.1-SNAPSHOT
+    container_name: order-service
     ports:
       - "8082:8082"
     depends_on:
@@ -38,6 +41,7 @@ services:
 
   postgres-customer:
     image: postgres
+    container_name: postgres-customer
     ports:
       - "5432:5432"
     environment:
@@ -47,6 +51,7 @@ services:
 
   postgres-order:
     image: postgres
+    container_name: postgres-order
     ports:
       - "5431:5431"
     environment:
@@ -56,6 +61,7 @@ services:
 
   jaeger-all-in-one:
     image: jaegertracing/all-in-one:latest
+    container_name: jaeger-all-in-one
     ports:
       - "16686:16686"
       - "14268"
@@ -63,6 +69,7 @@ services:
 
   otel-collector:
     image: otel/opentelemetry-collector:0.47.0
+    container_name: otel-collector
     command: [ "--config=/etc/otel-collector-config.yaml" ]
     volumes:
       - ./otel-config.yaml:/etc/otel-collector-config.yaml
@@ -76,6 +83,7 @@ services:
 
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
+    container_name: zookeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -84,6 +92,7 @@ services:
 
   kafka:
     image: confluentinc/cp-kafka:latest
+    container_name: kafka
     depends_on:
       - zookeeper
     ports:
